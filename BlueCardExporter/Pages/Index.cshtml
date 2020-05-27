@@ -1,0 +1,245 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    Import Data
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label class="form-control-file">Import Classes</label>
+                        <div class="d-flex flex-wrap">
+                            <input type="file" accept=".xlsx, .xls, .csv" id="classFile" />
+                            <button class="btn btn-secondary btn-sm ml-auto import-file" data-filetype="@((int)BlueCardExporter.Models.FileTypeEnum.ClassFile)">Validate</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-file">Import Counselors</label>
+                        <div class="d-flex flex-wrap">
+                            <input type="file" accept=".xlsx, .xls, .csv" id="counselorFile" />
+                            <button class="btn btn-secondary btn-sm ml-auto import-file" data-filetype="@((int)BlueCardExporter.Models.FileTypeEnum.CounselorFile)">Validate</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-file">Import Students</label>
+                        <div class="d-flex flex-wrap">
+                            <input type="file" accept=".xlsx, .xls, .csv" id="studentFile" />
+                            <button class="btn btn-secondary btn-sm ml-auto import-file" data-filetype="@((int)BlueCardExporter.Models.FileTypeEnum.StudentFile)">Validate</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-file">Import Student Class Entries</label>
+                        <div class="d-flex flex-wrap">
+                            <input type="file" accept=".xlsx, .xls, .csv" id="studentEntryFile" />
+                            <button class="btn btn-secondary btn-sm ml-auto import-file" data-filetype="@((int)BlueCardExporter.Models.FileTypeEnum.StudentClassEntryFile)">Validate</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="card">
+                <div class="card-header">
+                    Export Options
+                </div>
+                <div class="card-body" id="exportOptions">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="studentSortOrder" id="studentSortOrder1" value="1" checked />
+                        <label class="form-check-label" for="studentSortOrder1">Use provided student order</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="studentSortOrder" id="studentSortOrder2" value="2" />
+                        <label class="form-check-label" for="studentSortOrder2">Sort by student first name</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="studentSortOrder" id="studentSortOrder3" value="3" />
+                        <label class="form-check-label" for="studentSortOrder3">Sort by student last name</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="studentSortOrder" id="studentSortOrder4" value="4" />
+                        <label class="form-check-label" for="studentSortOrder4">Sort by student unit number</label>
+                    </div>
+                    <hr />
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="separateByUnitNumber" />
+                        <label class="form-check-label" for="separateByUnitNumber">Separate export by unit number</label>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <button class="btn btn-primary btn-block" id="btnExport">Export Blue Cards</button>
+            <br />
+        </div>
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <ul class="nav nav-tabs card-header-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="nav-classes-tab" data-toggle="tab" role="tab" href="#classes">Classes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="nav-counselors-tab" data-toggle="tab" role="tab" href="#counselors">Counselors</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="nav-students-tab" data-toggle="tab" role="tab" href="#students">Students</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="nav-entries-tab" data-toggle="tab" role="tab" href="#entries">Entries</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="nav-export-tab" data-toggle="tab" role="tab" href="#export">Export</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-body scroll">
+                    <div class="tab-content">
+                        <div class="tab-pane fade active show" role="tabpanel" id="classes">
+                            <div class="text-center">Import and validate a CSV file containing merit badge classes to view the output</div>
+                        </div>
+                        <div class="tab-pane fade" role="tabpanel" id="counselors">
+                            <div class="text-center">Import and validate a CSV file containing merit badge counselors to view the output</div>
+                        </div>
+                        <div class="tab-pane fade" role="tabpanel" id="students">
+                            <div class="text-center">Import and validate a CSV file containing merit badge students to view the output</div>
+                        </div>
+                        <div class="tab-pane fade" role="tabpanel" id="entries">
+                            <div class="text-center">Import and validate a CSV file containing merit badge student class entries to view the output</div>
+                        </div>
+                        <div class="tab-pane fade" role="tabpanel" id="export">
+                            <div class="text-center">Export blue cards to view the output</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@Html.AntiForgeryToken()
+
+@section Scripts
+{
+    <script>
+        const classTab = 0;
+        const counselorTab = 1;
+        const studentTab = 2;
+        const studentEntryTab = 3;
+        const exportTab = 4;
+
+        $(document).ready(function () {
+            $('.import-file').click(function () {
+                var fileType = $(this).data('filetype');
+                var file = $(this).parent().find('input')[0].files[0];
+                if (file) {
+                    var formData = new FormData();
+                    formData.append("file", file);
+                    formData.append("fileType", fileType);
+                    $.ajax({
+                        url: '/Uploader',
+                        data: formData,
+                        headers: {
+                            RequestVerificationToken: $('input:hidden[name="__RequestVerificationToken"]').val()
+                        },
+                        processData: false,
+                        contentType: false,
+                        type: 'POST',
+                        success: function (data) {
+                            UpdateValidateTabPanel(data, fileType, true);
+                        }
+                    });
+                }
+            });
+            $('#btnExport').click(function () {
+                var classFile = $('#classFile')[0].files;
+                var counselorFile = $('#counselorFile')[0].files;
+                var studentFile = $('#studentFile')[0].files;
+                var studentEntryFile = $('#studentEntryFile')[0].files;
+                if (classFile.length > 0 && counselorFile.length > 0 && studentFile.length > 0 && studentEntryFile.length > 0) {
+                    var sortOrder = $('input[name=studentSortOrder]:checked', '#exportOptions').val();
+                    var separateByUnitNumber = $('#separateByUnitNumber').is(':checked');
+                    var formData = new FormData();
+                    formData.append("classFile", classFile[0]);
+                    formData.append("counselorFile", counselorFile[0]);
+                    formData.append("studentFile", studentFile[0]);
+                    formData.append("studentEntryFile", studentEntryFile[0]);
+                    formData.append("sortOrder", sortOrder);
+                    formData.append("separateByUnitNumber", separateByUnitNumber);
+                    var output = [
+                        "Beginning merit badge blue card export with the following parameters:",
+                        "Class file: " + classFile[0].name,
+                        "Counselor file: " + counselorFile[0].name,
+                        "Student file: " + studentFile[0].name,
+                        "Student Entry file: " + studentEntryFile[0].name,
+                        "Sort Order: " + $('input[name=studentSortOrder]:checked').parent().find('label')[0].textContent,
+                        "Separate by Unit Number: " + separateByUnitNumber,
+                        "Generating PDF..."
+                    ];
+                    UpdateValidateTabPanel(output, exportTab, true);
+                    $.ajax({
+                        cache: false,
+                        url: '',
+                        data: formData,
+                        headers: {
+                            RequestVerificationToken: $('input:hidden[name="__RequestVerificationToken"]').val()
+                        },
+                        processData: false,
+                        contentType: false,
+                        type: 'POST',
+                        success: function (data) {
+                            if (data && data.fileName && data.fileGuid) {
+                                UpdateValidateTabPanel(["Downloading " + data.fileName + "..."], exportTab);
+                                window.location = '/Download?fileGuid=' + data.fileGuid + '&filename=' + data.fileName;
+                            } else {
+                                UpdateValidateTabPanel(["Error: Unable to generate the PDF. Ensure that the import files are validated with no errors."], exportTab);
+                            }
+                        },
+                        error: function (xhr) {
+                            UpdateValidateTabPanel([xhr.responseText], exportTab);
+                        }
+                    });
+                } else {
+                    UpdateValidateTabPanel(["Please provide all of the necessary files."], exportTab);
+                }
+
+            });
+        });
+        function UpdateValidateTabPanel(data, tab, refresh) {
+            var tabSelector = '';
+            var tabId = '';
+            if (tab === classTab) {
+                tabSelector = '#classes';
+                tabId = '#nav-classes-tab';
+            }
+            if (tab === counselorTab) {
+                tabSelector = '#counselors';
+                tabId = '#nav-counselors-tab';
+            }
+            if (tab === studentTab) {
+                tabSelector = '#students';
+                tabId = '#nav-students-tab';
+            }
+            if (tab === studentEntryTab) {
+                tabSelector = '#entries';
+                tabId = '#nav-entries-tab';
+            }
+            if (tab === exportTab) {
+                tabSelector = '#export';
+                tabId = '#nav-export-tab';
+            }
+            var tabpanel = $(tabSelector);
+            $(tabId).tab('show');
+            if (refresh) {
+                tabpanel.empty();
+            }
+            if (data != null && data.length > 0) {
+                data.forEach((row) => {
+                    tabpanel.append('<div class="import-output">' + row + '</div>');
+                });
+            }
+        }
+    </script>
+}

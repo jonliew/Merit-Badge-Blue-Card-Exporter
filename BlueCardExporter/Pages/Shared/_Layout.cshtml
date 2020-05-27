@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Merit Badge Blue Card Exporter</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-darkly.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-page="/Index">Merit Badge Clue Card Exporter</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="#" data-toggle="modal" data-target="#instructionModal">Instructions</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div id="instructionModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Instructions</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>This application allows you to conveniently populate blue cards based on files that contain merit badge class data and export them as a PDF.</p>
+                    <p>Steps to Export Your Blue Cards</p>
+                    <ol>
+                        <li>Upload the four files and Validate them for any errors. Click on each to download a template CSV file. The CSV files were created from <a href="~/files/Export_Specifications.pdf">this</a> specification.
+                            <ul>
+                                <li><a href="~/files/MeritBadgeClasses.csv">Merit Badge Classes</a></li>
+                                <li><a href="~/files/MeritBadgeCounselors.csv">Merit Badge Counselors</a></li>
+                                <li><a href="~/files/MeritBadgeStudents.csv">Merit Badge Students</a></li>
+                                <li><a href="~/files/MeritBadgeStudentClassEntries.csv">Merit Badge Student Class Entries</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            Configure your Export Options.
+                        </li>
+                        <li>
+                            Export your blue cards! Depending on how many classes and students you have, it may take a couple of seconds for the web app to generate the PDF.
+                        </li>
+                    </ol>
+                    <hr />
+                    <p class="text-muted">This open-source web app was developed by Jonathan Liew. For more information, visit the <a href="https://github.com/jonliew/Merit-Badge-Blue-Card-Exporter">GitHub repo</a>!</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container-fluid">
+            Blue Card Exporter - <a asp-area="" asp-page="/Privacy">Privacy</a>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
