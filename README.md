@@ -25,9 +25,9 @@ This web application allows you to conveniently populate BSA merit badge blue ca
 
 ## How to Run
 - Download the repository
-- Extract and navigate to publish-output
+- Extract and navigate to the publish-output folder
 - Execute the .exe file
-- Navigate to the localhost site that shows in your favorite browser
+- Navigate to the localhost site that appears in the terminal in your favorite browser
 - Enjoy!
 
 ## How to Test
@@ -35,11 +35,20 @@ The public-output folder contains a few template files that you can use to test 
 
 ## Technical Information
 - An [Export Specification](https://github.com/jonliew/Merit-Badge-Blue-Card-Exporter/blob/master/BlueCardExporter/wwwroot/files/Export_Specifications.pdf) was written to help define the details of the files. This could also be used by other developers to help transfer merit badge class data.
-- Yes, this is a .NET Core Razor Pages application that can be run locally or published to the Internet. Why? Because I wanted this to be compatible with Windows, Linux, and MacOS. Plus, I wanted to quickly create this in a weekend. While it could be deployed and run from a remote server, the file generation will take a bit longer due to server resources.
+- Yes, this is a .NET Core Razor Pages application that can be run locally or published to the Internet. Why? Because I wanted this to be compatible with Windows, Linux, and MacOS. Plus, I wanted to quickly create this in a weekend. While it could be deployed and run from a remote server, the file generation might take a bit longer due to server resources.
 
 ## Screenshots
-Enjoy some eye-candy!
+Here is some eye-candy!
 
-Image of the Main Application
+### Image of the Main Application
 
-Image of the PDF Generated
+<img src="/images/ApplicationScreenshot.png" width="1000" />
+
+### Images of a Sample PDF Generated
+
+Front
+
+<img src="/images/BlueCardFront.png" width="600" />
+Back
+
+<img src="/images/BlueCardBack.png" width="600" />
