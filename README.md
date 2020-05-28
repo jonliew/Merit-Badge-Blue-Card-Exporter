@@ -24,11 +24,22 @@ This web application allows you to conveniently populate BSA merit badge blue ca
 - Anyone else who wants to save time and already has their class info electronically documented
 
 ## How to Run
-- Get the application by downloading the contents of the publish folder.
+- Download the repository
+- Extract and navigate to publish-output
 - Execute the .exe file
 - Navigate to the localhost site that shows in your favorite browser
 - Enjoy!
 
+## How to Test
+The public-output folder contains a few template files that you can use to test with the application. You can find these files in the ~/publish-output/wwwroot/files/ folder.
+
 ## Technical Information
 - An [Export Specification](https://github.com/jonliew/Merit-Badge-Blue-Card-Exporter/blob/master/BlueCardExporter/wwwroot/files/Export_Specifications.pdf) was written to help define the details of the files. This could also be used by other developers to help transfer merit badge class data.
-- Yes, this is a .NET Core Razor Pages application that can be run locally or published to the Internet. Why? Because I wanted this to be compatible with Windows, Linux, and MacOS.
+- Yes, this is a .NET Core Razor Pages application that can be run locally or published to the Internet. Why? Because I wanted this to be compatible with Windows, Linux, and MacOS. Plus, I wanted to quickly create this in a weekend. While it could be deployed and run from a remote server, the file generation will take a bit longer due to server resources.
+
+## Screenshots
+Enjoy some eye-candy!
+
+Image of the Main Application
+
+Image of the PDF Generated
