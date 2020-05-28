@@ -24,7 +24,7 @@ This web application allows you to conveniently populate BSA merit badge blue ca
 - Anyone else who wants to save time and already has their class info electronically documented
 
 ## How to Run
-- Download the repository
+- Download the latest [release](https://github.com/jonliew/Merit-Badge-Blue-Card-Exporter/releases/latest)
 - Extract and navigate to the publish-output folder
 - Execute the .exe file
 - Navigate to the localhost site that appears in the terminal in your favorite browser
