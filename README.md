@@ -52,3 +52,6 @@ Front
 Back
 
 <img src="/images/BlueCardBack.png" width="600" />
+
+## Feedback
+If you encounter an isue, feel free to open a GitHub issue or create a pull request. You can also contact me at j[zero]nathanl[one][three]w@[Google email]. Replace what you think should be replaced.
