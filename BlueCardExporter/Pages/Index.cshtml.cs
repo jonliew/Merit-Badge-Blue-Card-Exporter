@@ -43,9 +43,9 @@ namespace BlueCardExporter.Pages
         /// <param name="studentFile">File of students</param>
         /// <param name="studentEntryFile">File of student class entries</param>
         /// <param name="sortOrder">The sort order</param>
-        /// <param name="separateByUnitNumber">Whether to separate the downloads by unit number</param>
+        /// <param name="writeVoid">Whether to separate the downloads by unit number</param>
         /// <returns>JSON to download the file through AJAX</returns>
-        public async Task<IActionResult> OnPost(IFormFile classFile, IFormFile counselorFile, IFormFile studentFile, IFormFile studentEntryFile, int sortOrder, bool separateByUnitNumber)
+        public async Task<IActionResult> OnPost(IFormFile classFile, IFormFile counselorFile, IFormFile studentFile, IFormFile studentEntryFile, int sortOrder, bool writeVoid)
         {
             if (sortOrder <= 0 || 5 <= sortOrder)
             {
@@ -101,7 +101,7 @@ namespace BlueCardExporter.Pages
 
                         for (var i = 1; i <= numberOfPDFs; i++)
                         {
-                            using var outputPDFStream = BlueCardUtility.GetBlueCards(mbcstudent, i);
+                            using var outputPDFStream = BlueCardUtility.GetBlueCards(mbcstudent, i, writeVoid);
                             byteArrays.Add(outputPDFStream.ToArray());
                         }
                     }

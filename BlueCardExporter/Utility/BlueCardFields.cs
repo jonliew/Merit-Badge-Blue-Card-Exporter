@@ -29,5 +29,10 @@
         public const string CounselorPhone = "CounselorPhone";
         public const string DateCompleted = "DateCompleted";
         public const string Remarks = "Remarks";
+
+        // Void fields
+        public const string BlueCardVoid1 = "Void"; // without the 1 but applies to the second blue card
+        public const string BlueCardVoid2 = "Void2";
+
     }
 }

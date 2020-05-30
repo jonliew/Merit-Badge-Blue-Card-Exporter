@@ -14,14 +14,15 @@ namespace BlueCardExporter.Utility
         /// </summary>
         /// <param name="student">The merit badge student we want to get the blue cards for</param>
         /// <param name="numberOfPDFs">The number of PDFs we are going to generate</param>
+        /// <param name="writeVoid">Whether VOID should be written on unused blue cards</param>
         /// <returns>A MemoryStream containing the blue cards</returns>
-        public static MemoryStream GetBlueCards(MeritBadgeStudentViewModel student, int numberOfPDFs)
+        public static MemoryStream GetBlueCards(MeritBadgeStudentViewModel student, int numberOfPDFs, bool writeVoid = true)
         {
             var blueCardPDFFileName = BlueCardFields.BlueCardFormName;
             var blueCardPDFFilePath = Path.Combine("Files", blueCardPDFFileName);
             using Stream pdfInputStream = new FileStream(path: blueCardPDFFilePath, mode: FileMode.Open);
             using var resultPDFOutputStream = new MemoryStream();
-            using Stream resultPDFStream = FillForm(pdfInputStream, student, numberOfPDFs);
+            using Stream resultPDFStream = FillForm(pdfInputStream, student, numberOfPDFs, writeVoid);
 
             resultPDFStream.Position = 0;
             resultPDFStream.CopyTo(resultPDFOutputStream);
@@ -34,8 +35,9 @@ namespace BlueCardExporter.Utility
         /// <param name="inputStream">The blank blue card</param>
         /// <param name="model">The merit badge student that contains the data</param>
         /// <param name="numberOfPDFs">The number of PDFs we are going to generate for the student</param>
+        /// <param name="writeVoid">Whether VOID should be written on unused blue cards</param>
         /// <returns>A Stream containing the filled out PDF</returns>
-        private static Stream FillForm(Stream inputStream, MeritBadgeStudentViewModel model, int numberOfPDFs)
+        private static Stream FillForm(Stream inputStream, MeritBadgeStudentViewModel model, int numberOfPDFs, bool writeVoid)
         {
             Stream outStream = new MemoryStream();
             PdfReader pdfReader = null;
@@ -73,8 +75,6 @@ namespace BlueCardExporter.Utility
 
                 var mbcclasses = model.StudentClassEntries.ToList();
 
-
-
                 for (var i = 1; i + 3 * (numberOfPDFs - 1) <= model.StudentClassEntries.Count() && i <= 3; i++)
                 {
                     var mbcclass = mbcclasses[i + 3 * (numberOfPDFs - 1) - 1];
@@ -86,7 +86,6 @@ namespace BlueCardExporter.Utility
                     form.SetField(BlueCardFields.MeritBadgeName + number, mbcclass.MeritBadgeClass.ClassName);
                     form.SetFieldProperty(BlueCardFields.MeritBadgeName + number, "textfont", bf, null);
                     form.RegenerateField(BlueCardFields.MeritBadgeName + number);
-
 
                     form.SetField(BlueCardFields.DateApplied + number, "");
 
@@ -125,14 +124,19 @@ namespace BlueCardExporter.Utility
                     {
                         form.SetField(BlueCardFields.DateCompleted + number, mbcclass.CompletionDate.ToString("MM/dd/yyyy"));
                     }
+                    
+                    if (!string.IsNullOrWhiteSpace(mbcclass.Remarks))
+                    {
+                        form.SetField(BlueCardFields.Remarks + number, mbcclass.Remarks);
+                    }
 
                 }
-                if (numberOfPDFs * 3 - mbcclasses.Count > 0)
+                if (writeVoid && numberOfPDFs * 3 - mbcclasses.Count > 0)
                 {
-                    form.SetField("Void", "VOID");
+                    form.SetField(BlueCardFields.BlueCardVoid1, "VOID");
                     if (numberOfPDFs * 3 - mbcclasses.Count > 1)
                     {
-                        form.SetField("Void2", "VOID");
+                        form.SetField(BlueCardFields.BlueCardVoid2, "VOID");
                     }
                 }
                 pdfStamper.FormFlattening = true;

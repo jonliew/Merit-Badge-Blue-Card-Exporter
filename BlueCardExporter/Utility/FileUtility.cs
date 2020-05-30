@@ -242,6 +242,11 @@ namespace BlueCardExporter.Utility
                 isValid = false;
             }
 
+            if (studentClassEntryList.Where(e => e.Remarks.Length > 130).Any())
+            {
+                ResultMessage.Add("Warning: There are Remarks that are greater than 130 characters and may not print in full on the blue card.");
+            }
+
             ResultMessage.Add(string.Join(',', studentClassEntryList[0].GetType().GetProperties().Select(p => p.Name)));
             ResultMessage.AddRange(studentClassEntryList.Select(e => e.ToString()));
             return isValid;
